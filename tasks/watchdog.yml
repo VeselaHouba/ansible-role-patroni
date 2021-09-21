@@ -31,3 +31,15 @@
     state: link
   when: ansible_distribution in ('Ubuntu', 'Debian') and
         ansible_distribution_release in ('xenial', 'jessie')
+
+# Another dirty hack. Watchdog conflicts wd_keepalive on debian 11
+- name: Disable watchdog ExecStopPost
+  lineinfile:
+    path: /lib/systemd/system/watchdog.service
+    regexp: '^ExecStopPost='
+    state: absent
+  notify:
+    - restart watchdog
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_distribution_release == 'bullseye'
