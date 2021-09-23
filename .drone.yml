@@ -1,0 +1,4 @@
+kind: template
+load: ansible-role-publish.star
+# This pipeline works only with tags!
+# Pipelines https://github.com/VeselaHouba/molecule/tree/master/dronelib
